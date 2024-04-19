@@ -13,8 +13,7 @@ class VentanaPrincipal:
         self.ventana.wm_iconbitmap('recursos/icon.ico')
 
         # Creacion del contenedor Frame principal
-        frame = LabelFrame(self.ventana, text="Registrar un nuevo Producto",font=('Calibri', 16, 'bold')
-)
+        frame = LabelFrame(self.ventana, text="Registrar un nuevo Producto",font=('Calibri', 16, 'bold'))
 
         frame.grid(row=0, column=0, columnspan=3, pady=20)
         self.etiqueta_nombre = Label(frame, text="Nombre: ",font=('Calibri', 13))  # Etiqueta de texto ubicada en el frame
@@ -36,7 +35,6 @@ class VentanaPrincipal:
         s.configure('my.TButton', font=('Calibri', 14, 'bold'))
         self.boton_anadir = ttk.Button(frame, text="Guardar Producto", command=self.add_producto,style='my.TButton')
         self.boton_anadir.grid(row=3, columnspan=2, sticky=W + E)
-
         # Tabla de productos
         # Estilo personalizado para la tabla
         style = ttk.Style()
