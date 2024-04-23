@@ -3,7 +3,7 @@ import sqlite3
 
 class Cliente:
 
-    def __init__(self, tipodoc, numdoc, fecexpdoc, nombre, apellido1, apellido2, pais, fecnac, habitacion):
+    def __init__(self, tipodoc, numdoc, fecexpdoc, nombre, apellido1, apellido2, pais, fecnac, habitacion, fecEnt, fecSal):
         self.tipodoc = tipodoc
         self.numdoc = numdoc
         self.fecexpdoc = fecexpdoc
@@ -16,6 +16,8 @@ class Cliente:
         self.pais = pais
         self.fecnac = fecnac
         self.habitacion = habitacion
+        self.fecent = fecEnt
+        self.fecsal = fecSal
 
 
 
@@ -23,6 +25,12 @@ class Cliente:
         conexion = sqlite3.connect('database/usuarios.db')
         cursor = conexion.cursor()
 
-        cursor.execute('INSERT INTO clientesTEMP VALUES (?,?,?,?,?,?,?,?,?)', (self.tipodoc,self.numdoc,self.fecexpdoc,self.nombre,self.apellido1,self.apellido2,self.fecnac,self.pais,self.habitacion))
-        conexion.commit()
-        conexion.close()
+        try:
+            cursor.execute('INSERT INTO clientesTEMP VALUES (?,?,?,?,?,?,?,?,?,?,?)', (self.tipodoc,self.numdoc,self.fecexpdoc,self.nombre,self.apellido1,self.apellido2,self.fecnac,self.pais,self.habitacion, self.fecent, self.fecsal))
+            cursor.execute('INSERT INTO clientesPER VALUES (?,?,?,?,?,?,?,?,?)', (self.tipodoc,self.numdoc,self.nombre,self.apellido1,self.apellido2,self.fecnac,self.pais))
+            conexion.commit()
+        except sqlite3.Error as e:
+            print("Error al insertar en la base de datos:", e)
+            conexion.rollback()  # Revertir cambios
+        finally:
+            conexion.close()
