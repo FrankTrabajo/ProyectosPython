@@ -13,7 +13,7 @@ class CheckIn:
         self.ventana_check.title("Hostal Cruz Sol")
         self.ventana_check.resizable(1, 1)  # Activa la redimension de la ventana. Para desactivarla (0,0)
         self.ventana_check.wm_iconbitmap('recursos/cruzSol.ico')
-        self.ventana_check.geometry("1065x525+240+120")
+        self.ventana_check.geometry("390x520+240+120")
 
         self.opciones = ['DNI', 'NIF', 'PASAPORTE']
 
@@ -39,23 +39,8 @@ class CheckIn:
         self.etiqueta_expdoc = Label(self.datos_reserva, text='Fecha Expiracion Documento:')
         self.etiqueta_expdoc.grid(row=2, column=0)
 
-        self.etiqueta_dia = Label(self.datos_reserva, text='Dia:')
-        self.etiqueta_dia.grid(row=2, column=1, padx=5, pady=5)
-
-        self.dia = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.dia.grid(row=2,column=2, padx=5, pady=5)
-
-        self.etiqueta_mes = Label(self.datos_reserva, text='Mes:')
-        self.etiqueta_mes.grid(row=2, column=3, padx=5, pady=5)
-
-        self.mes = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.mes.grid(row=2,column=4, padx=5, pady=5)
-
-        self.etiqueta_año = Label(self.datos_reserva, text='Año:')
-        self.etiqueta_año.grid(row=2, column=5, padx=5, pady=5)
-
-        self.año = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.año.grid(row=2,column=6, padx=5, pady=5)
+        self.expdoc = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
+        self.expdoc.grid(row=2,column=1, padx=5, pady=5)
 
         ##NOMBRE
         self.etiqueta_nombre = Label(self.datos_reserva, text='Nombre:')
@@ -86,26 +71,11 @@ class CheckIn:
         self.pais.grid(row=6, column=1, padx=10, pady=5)
 
         ##FECHA DE NACIMIENTO
-        self.etiqueta_expdoc = Label(self.datos_reserva, text='Fecha de nacimiento:')
-        self.etiqueta_expdoc.grid(row=7, column=0)
+        self.etiqueta_fecnac = Label(self.datos_reserva, text='Fecha de nacimiento:')
+        self.etiqueta_fecnac.grid(row=7, column=0)
 
-        self.etiqueta_dia2 = Label(self.datos_reserva, text='Dia:')
-        self.etiqueta_dia2.grid(row=7, column=1, padx=0, pady=5)
-
-        self.dia2 = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.dia2.grid(row=7,column=2, padx=5, pady=5)
-
-        self.etiqueta_mes2 = Label(self.datos_reserva, text='Mes:')
-        self.etiqueta_mes2.grid(row=7, column=3, padx=5, pady=5)
-
-        self.mes2 = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.mes2.grid(row=7,column=4, padx=5, pady=5)
-
-        self.etiqueta_año2 = Label(self.datos_reserva, text='Año:')
-        self.etiqueta_año2.grid(row=7, column=5, padx=5, pady=5)
-
-        self.año2 = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.año2.grid(row=7,column=6, padx=5, pady=5)
+        self.fecnac = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
+        self.fecnac.grid(row=7,column=1, padx=5, pady=5)
 
 
         ##HABITACIONES
@@ -124,45 +94,17 @@ class CheckIn:
         self.etiqueta_entrada = Label(self.datos_reserva, text='Fecha de entrada:')
         self.etiqueta_entrada.grid(row=9, column=0)
 
-        self.etiqueta_dia_estancia = Label(self.datos_reserva, text='Dia:')
-        self.etiqueta_dia_estancia.grid(row=9, column=1, padx=0, pady=5)
+        self.estancia = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
+        self.estancia.grid(row=9,column=1, padx=5, pady=5)
 
-        self.dia_estancia = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.dia_estancia.grid(row=9,column=2, padx=5, pady=5)
 
-        self.etiqueta_mes_estancia = Label(self.datos_reserva, text='Mes:')
-        self.etiqueta_mes_estancia.grid(row=9, column=3, padx=5, pady=5)
-
-        self.mes_estancia = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.mes_estancia.grid(row=9,column=4, padx=5, pady=5)
-
-        self.etiqueta_año_estancia = Label(self.datos_reserva, text='Año:')
-        self.etiqueta_año_estancia.grid(row=9, column=5, padx=5, pady=5)
-
-        self.año_estancia = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.año_estancia.grid(row=9,column=6, padx=5, pady=5)
-
-        ##FECHA DE ESTANCIA
+        ##FECHA FIN ESTANCIA
         self.etiqueta_salida = Label(self.datos_reserva, text='Fecha de salida:')
         self.etiqueta_salida.grid(row=10, column=0)
 
-        self.etiqueta_dia_salida = Label(self.datos_reserva, text='Dia:')
-        self.etiqueta_dia_estancia.grid(row=10, column=1, padx=0, pady=5)
+        self.salida = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
+        self.salida.grid(row=10,column=1, padx=5, pady=5)
 
-        self.dia_salida = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.dia_salida.grid(row=10,column=2, padx=5, pady=5)
-
-        self.etiqueta_mes_salida = Label(self.datos_reserva, text='Mes:')
-        self.etiqueta_mes_salida.grid(row=10, column=3, padx=5, pady=5)
-
-        self.mes_salida = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.mes_salida.grid(row=10,column=4, padx=5, pady=5)
-
-        self.etiqueta_año_salida = Label(self.datos_reserva, text='Año:')
-        self.etiqueta_año_salida.grid(row=10, column=5, padx=5, pady=5)
-
-        self.año_salida = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.año_salida.grid(row=10,column=6, padx=5, pady=5)
 
         ##BOTON PARA GUARDAR LA RESERVA
         btn_guardar = Button(self.datos_reserva, text="Guardar", width=10, font=('Calibri', 14, 'bold'),command=self.btn_guardar)
@@ -179,51 +121,29 @@ class CheckIn:
     def btn_guardar(self):
         tipodoc = self.opcion.get()
         numdoc = self.numdoc.get()
-        dia = self.dia.get()
-        mes = self.mes.get()
-        año = self.año.get()
-        fecExp = f"{dia}/{mes}/{año}"
+        fecExp = self.expdoc.get()
         nombre = self.nombre.get()
-        apelldio1 = self.apellido1.get()
+        apellido1 = self.apellido1.get()
         apellido2 = self.apellido2.get()
         pais = self.pais.get()
-        dia2 = self.dia2.get()
-        mes2 = self.mes2.get()
-        año2 = self.año2.get()
-        dia_entrada = self.dia_entrada.get()
-        mes_entrada = self.mes_entrada.get()
-        año_entrada = self.año_entrada.get()
-        dia_salida = self.dia_salida.get()
-        mes_salida = self.mes_salida.get()
-        año_salida = self.año_salida.get()
-        fecNac = f"{dia2}/{mes2}/{año2}"
-        fecEnt = f"{dia_entrada}/{mes_entrada}/{año_entrada}"
-        fecSal = f"{dia_salida}/{mes_salida}/{año_salida}"
+        fecNac = self.fecnac.get()
+        fecEnt = self.estancia.get()
+        fecSal = self.salida.get()
         habitacion = self.habitacion.get()
         print(fecNac,":",fecExp)
         print(nombre)
-        cli = cliente.Cliente(tipodoc,numdoc,fecExp,nombre,apelldio1,apellido2,pais,fecNac,habitacion, fecEnt, fecSal)
+        cli = cliente.Cliente(tipodoc,numdoc,fecExp,nombre,apellido1,apellido2,pais,fecNac,habitacion, fecEnt, fecSal)
+        cliReserva = cliente.ClienteReserva(tipodoc,numdoc,nombre,apellido1,apellido2,fecNac,pais)
         cli.registrarCliente()
+        cliReserva.registrarClienteReserva()
         self.definirHabOcupada(habitacion)
+
         self.ventana_inicio.etiqueta_nombre_cli.config(text=nombre, fg="green")
-        self.ventana_inicio.etiqueta_apellido_cli.config(text=f"{apelldio1} {apellido2}", fg="green")
+        self.ventana_inicio.etiqueta_apellido_cli.config(text=f"{apellido1} {apellido2}", fg="green")
         self.ventana_inicio.etiqueta_hab_cli.config(text=habitacion, fg="green")
+        self.ventana_inicio.etiqueta_ent_cli.config(text=fecEnt, fg="green")
+        self.ventana_inicio.etiqueta_sal_cli.config(text=fecSal, fg="green")
         self.ventana_check.destroy()
-
-    def validate_entry(self, input_text):
-        if input_text.isdigit():
-            return True
-        elif input_text == "":
-            return True
-        else:
-            return False
-
-
-    def validate_input(self, input_text):
-        if input_text.isalpha() or input_text == "":
-            return True
-        else:
-            return False
 
 
     def definirHabOcupada(self, numHab):

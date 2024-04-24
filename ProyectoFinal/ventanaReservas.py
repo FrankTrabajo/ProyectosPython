@@ -9,7 +9,7 @@ class Reserva:
         self.ventana_reserva.title("Hostal Cruz Sol")
         self.ventana_reserva.resizable(1, 1)  # Activa la redimension de la ventana. Para desactivarla (0,0)
         self.ventana_reserva.wm_iconbitmap('recursos/cruzSol.ico')
-        self.ventana_reserva.geometry("1065x450+240+120")
+        self.ventana_reserva.geometry("390x510+240+120")
 
         self.opciones = ['DNI', 'NIF', 'PASAPORTE']
 
@@ -34,23 +34,8 @@ class Reserva:
         self.etiqueta_expdoc = Label(self.datos_reserva, text='Fecha Expiracion Documento:')
         self.etiqueta_expdoc.grid(row=2, column=0)
 
-        self.etiqueta_dia = Label(self.datos_reserva, text='Dia:')
-        self.etiqueta_dia.grid(row=2, column=1, padx=5, pady=5)
-
-        self.dia = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.dia.grid(row=2,column=2, padx=5, pady=5)
-
-        self.etiqueta_mes = Label(self.datos_reserva, text='Mes:')
-        self.etiqueta_mes.grid(row=2, column=3, padx=5, pady=5)
-
-        self.mes = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.mes.grid(row=2,column=4, padx=5, pady=5)
-
-        self.etiqueta_año = Label(self.datos_reserva, text='Año:')
-        self.etiqueta_año.grid(row=2, column=5, padx=5, pady=5)
-
-        self.año = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.año.grid(row=2,column=6, padx=5, pady=5)
+        self.fecexp = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
+        self.fecexp.grid(row=2,column=1, padx=5, pady=5)
 
         ##NOMBRE
         self.etiqueta_nombre = Label(self.datos_reserva, text='Nombre:')
@@ -80,32 +65,9 @@ class Reserva:
         self.pais = Entry(self.datos_reserva, font=('Calibri', 13))
         self.pais.grid(row=6, column=1, padx=10, pady=5)
 
-        ##FECHA DE NACIMIENTO
-        self.etiqueta_expdoc = Label(self.datos_reserva, text='Fecha de nacimiento:')
-        self.etiqueta_expdoc.grid(row=7, column=0)
-
-        self.etiqueta_dia2 = Label(self.datos_reserva, text='Dia:')
-        self.etiqueta_dia2.grid(row=7, column=1, padx=0, pady=5)
-
-        self.dia2 = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.dia2.grid(row=7,column=2, padx=5, pady=5)
-
-        self.etiqueta_mes2 = Label(self.datos_reserva, text='Mes:')
-        self.etiqueta_mes2.grid(row=7, column=3, padx=5, pady=5)
-
-        self.mes2 = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.mes2.grid(row=7,column=4, padx=5, pady=5)
-
-        self.etiqueta_año2 = Label(self.datos_reserva, text='Año:')
-        self.etiqueta_año2.grid(row=7, column=5, padx=5, pady=5)
-
-        self.año2 = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
-        self.año2.grid(row=7,column=6, padx=5, pady=5)
-
-
         ##HABITACIONES
         self.etiqueta_habitacion = Label(self.datos_reserva, text='Habitacion:')
-        self.etiqueta_habitacion.grid(row=8, column=0)
+        self.etiqueta_habitacion.grid(row=7, column=0)
 
         habitaciones_libres = self.obtener_habitaciones_libres()
         self.habitacion = StringVar(self.datos_reserva)
@@ -113,15 +75,38 @@ class Reserva:
 
         # Configurar el OptionMenu para usar los números de habitaciones libres
         self.habitacionMenu = OptionMenu(self.datos_reserva, self.habitacion, *habitaciones_libres)
-        self.habitacionMenu.grid(row=8, column=1, padx=10, pady=5)
+        self.habitacionMenu.grid(row=7, column=1, padx=10, pady=5)
+
+        ##FECHA DE ESTANCIA
+        self.etiqueta_entrada = Label(self.datos_reserva, text='Fecha de entrada:')
+        self.etiqueta_entrada.grid(row=8, column=0)
+
+        self.estancia = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
+        self.estancia.grid(row=8,column=1, padx=5, pady=5)
+
+
+        ##FECHA FIN ESTANCIA
+        self.etiqueta_salida = Label(self.datos_reserva, text='Fecha de salida:')
+        self.etiqueta_salida.grid(row=9, column=0)
+
+        self.salida = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
+        self.salida.grid(row=9,column=1, padx=5, pady=5)
+
+
+        ##SITIO DE LA RESERVA
+        self.etiqueta_sitio = Label(self.datos_reserva, text='Sitio de la reserva realizada:')
+        self.etiqueta_sitio.grid(row=10, column=0)
+
+        self.sitio = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
+        self.sitio.grid(row=10,column=1, padx=5, pady=5)
 
         ##BOTON PARA GUARDAR LA RESERVA
-        btn_guardar = Button(self.datos_reserva, text="Guardar", width=10, font=('Calibri', 14, 'bold'))
-        btn_guardar.grid(row=9, column=0, pady=10)
+        btn_guardar = Button(self.datos_reserva, text="Guardar", width=10, font=('Calibri', 14, 'bold'), command=self.guardarReserva)
+        btn_guardar.grid(row=11, column=0, pady=10)
 
         ##BOTON PARA SALIR AL MENU PRINCIPAL
         btn_salir = Button(self.datos_reserva, text="Salir", width=10, font=('Calibri', 14, 'bold'), command=self.btn_salir)
-        btn_salir.grid(row=9, column=1, pady=10)
+        btn_salir.grid(row=11, column=1, pady=10)
 
 
     def obtener_habitaciones_libres(self):
@@ -130,7 +115,7 @@ class Reserva:
         cursor = conexion.cursor()
 
         # Consulta para obtener los números de habitaciones que no están ocupadas
-        cursor.execute("SELECT numeroHab FROM habitacion WHERE ocupada = 0")
+        cursor.execute("SELECT numeroHab FROM habitacion WHERE ocupada = 0 OR ocupada = 1")
         habitaciones_libres = cursor.fetchall()
 
         # Cerrar la conexión
@@ -140,6 +125,51 @@ class Reserva:
         return [habitacion[0] for habitacion in habitaciones_libres]
 
 
+    def definirHabOcupada(self, numHab):
+        # Establecer conexión a la base de datos
+        conexion = sqlite3.connect('database/usuarios.db')
+        cursor = conexion.cursor()
+
+        # Actualizar el estado de la habitación a ocupada
+        cursor.execute("UPDATE habitacion SET ocupada = 2 WHERE numeroHab = ?", (numHab,))
+
+        # Confirmar el cambio en la base de datos
+        conexion.commit()
+
+        # Cerrar la conexión
+        conexion.close()
+
 
     def btn_salir(self):
+        self.ventana_reserva.destroy()
+
+
+    def guardarReserva(self):
+
+        tipodoc = self.opcion.get()
+        numDoc = self.numdoc.get()
+        nombre = self.nombre.get()
+        apellido1 = self.apellido1.get()
+        apellido2 = self.apellido2.get()
+        habitacion = self.habitacion.get()
+        fecEntra = self.estancia.get()
+        fecSal = self.salida.get()
+        sitio = self.sitio.get()
+        pais = self.pais.get()
+
+        conexion = sqlite3.connect('database/usuarios.db')
+        cursor = conexion.cursor()
+
+        cursor.execute('INSERT INTO clientesReserva VALUES (?,?,?,?,?,?,?,?,?,?)',(tipodoc,numDoc,nombre,apellido1,apellido2,habitacion,fecEntra,fecSal,sitio,pais))
+        conexion.commit()
+        conexion.close()
+
+        self.ventana_inicio.etiqueta_nombre_res.config(text=nombre, fg="orange")
+        self.ventana_inicio.etiqueta_apellido_res.config(text=f"{apellido1} {apellido2}", fg="orange")
+        self.ventana_inicio.etiqueta_hab_res.config(text=habitacion, fg="orange")
+        self.ventana_inicio.etiqueta_ent_res.config(text=fecEntra, fg="orange")
+        self.ventana_inicio.etiqueta_sal_res.config(text=fecSal, fg="orange")
+
+        # Actualizar la lista de clientes en VentanaInicio
+        self.ventana_inicio.actualizar_lista_reservas()
         self.ventana_reserva.destroy()
