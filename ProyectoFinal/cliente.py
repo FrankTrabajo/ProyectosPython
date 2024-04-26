@@ -3,7 +3,7 @@ import sqlite3
 
 class Cliente:
 
-    def __init__(self, tipodoc, numdoc, fecexpdoc, nombre, apellido1, apellido2, pais, fecnac, habitacion, fecEnt, fecSal):
+    def __init__(self, tipodoc, numdoc, fecexpdoc, nombre, apellido1, apellido2, pais, fecnac, habitacion, fecEnt, fecSal, personas):
         self.tipodoc = tipodoc
         self.numdoc = numdoc
         self.fecexpdoc = fecexpdoc
@@ -18,6 +18,7 @@ class Cliente:
         self.habitacion = habitacion
         self.fecent = fecEnt
         self.fecsal = fecSal
+        self.personas = personas
 
 
 
@@ -26,7 +27,7 @@ class Cliente:
         cursor = conexion.cursor()
 
         try:
-            cursor.execute('INSERT INTO clientesTEMP VALUES (?,?,?,?,?,?,?,?,?,?,?)', (self.tipodoc,self.numdoc,self.fecexpdoc,self.nombre,self.apellido1,self.apellido2,self.fecnac,self.pais,self.habitacion, self.fecent, self.fecsal))
+            cursor.execute('INSERT INTO clientesTEMP VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', (self.tipodoc,self.numdoc,self.fecexpdoc,self.nombre,self.apellido1,self.apellido2,self.fecnac,self.pais,self.habitacion, self.fecent, self.fecsal, self.personas))
             conexion.commit()
             conexion.close()
         except sqlite3.Error as e:

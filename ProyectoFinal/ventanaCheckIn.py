@@ -13,7 +13,7 @@ class CheckIn:
         self.ventana_check.title("Hostal Cruz Sol")
         self.ventana_check.resizable(1, 1)  # Activa la redimension de la ventana. Para desactivarla (0,0)
         self.ventana_check.wm_iconbitmap('recursos/cruzSol.ico')
-        self.ventana_check.geometry("390x520+240+120")
+        self.ventana_check.geometry("390x550+240+120")
 
         self.opciones = ['DNI', 'NIF', 'PASAPORTE']
 
@@ -97,7 +97,6 @@ class CheckIn:
         self.estancia = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
         self.estancia.grid(row=9,column=1, padx=5, pady=5)
 
-
         ##FECHA FIN ESTANCIA
         self.etiqueta_salida = Label(self.datos_reserva, text='Fecha de salida:')
         self.etiqueta_salida.grid(row=10, column=0)
@@ -105,14 +104,21 @@ class CheckIn:
         self.salida = Entry(self.datos_reserva, font=('Calibri', 13), validate="key")
         self.salida.grid(row=10,column=1, padx=5, pady=5)
 
+        ##PERSONAS
+        self.etiqueta_personas = Label(self.datos_reserva, text="Personas: ")
+        self.etiqueta_personas.grid(row=11, column=0)
+
+        self.personas = Entry(self.datos_reserva, font=('Calibri', 13))
+        self.personas.grid(row=11, column=1, padx=5, pady=5)
+
 
         ##BOTON PARA GUARDAR LA RESERVA
         btn_guardar = Button(self.datos_reserva, text="Guardar", width=10, font=('Calibri', 14, 'bold'),command=self.btn_guardar)
-        btn_guardar.grid(row=11, column=0, pady=10)
+        btn_guardar.grid(row=12, column=0, pady=10)
 
         ##BOTON PARA SALIR AL MENU PRINCIPAL
         btn_salir = Button(self.datos_reserva, text="Salir", width=10, font=('Calibri', 14, 'bold'), command=self.btn_salir)
-        btn_salir.grid(row=11, column=1, pady=10)
+        btn_salir.grid(row=12, column=1, pady=10)
 
 
     def btn_salir(self):
@@ -130,19 +136,15 @@ class CheckIn:
         fecEnt = self.estancia.get()
         fecSal = self.salida.get()
         habitacion = self.habitacion.get()
-        print(fecNac,":",fecExp)
-        print(nombre)
-        cli = cliente.Cliente(tipodoc,numdoc,fecExp,nombre,apellido1,apellido2,pais,fecNac,habitacion, fecEnt, fecSal)
+        personas = self.personas.get()
+
+        cli = cliente.Cliente(tipodoc,numdoc,fecExp,nombre,apellido1,apellido2,pais,fecNac,habitacion, fecEnt, fecSal, personas)
         cliReserva = cliente.ClienteReserva(tipodoc,numdoc,nombre,apellido1,apellido2,fecNac,pais)
         cli.registrarCliente()
         cliReserva.registrarClienteReserva()
         self.definirHabOcupada(habitacion)
 
-        self.ventana_inicio.etiqueta_nombre_cli.config(text=nombre, fg="green")
-        self.ventana_inicio.etiqueta_apellido_cli.config(text=f"{apellido1} {apellido2}", fg="green")
-        self.ventana_inicio.etiqueta_hab_cli.config(text=habitacion, fg="green")
-        self.ventana_inicio.etiqueta_ent_cli.config(text=fecEnt, fg="green")
-        self.ventana_inicio.etiqueta_sal_cli.config(text=fecSal, fg="green")
+        self.ventana_inicio.actualizar_lista_clientes()
         self.ventana_check.destroy()
 
 

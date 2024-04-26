@@ -2,8 +2,10 @@ from tkinter import *
 from tkinter import Label, LabelFrame, PhotoImage, Canvas
 import sqlite3
 
+import ventanaBuscarCliente
 import ventanaCheckOut
 import ventanaCheckIn
+import ventanaFacturas
 import ventanaReservas
 
 
@@ -43,10 +45,10 @@ class VentanaInicio:
         btn_checkout = Button(frame_opciones, text="CHECKOUT", width=20, font=('Calibri', 14, 'bold'), command=self.accederCheckOut)
         btn_checkout.grid(row=1, column=0, pady=10, sticky="w")
 
-        btn_buscar = Button(frame_opciones, text="BUSCAR CLIENTE", width=20, font=('Calibri', 14, 'bold'))
+        btn_buscar = Button(frame_opciones, text="BUSCAR CLIENTE", width=20, font=('Calibri', 14, 'bold'), command=self.accederBusqueda)
         btn_buscar.grid(row=2, column=0, pady=10, sticky="w")
 
-        btn_factura = Button(frame_opciones, text="FACTURACION", width=20, font=('Calibri', 14, 'bold'))
+        btn_factura = Button(frame_opciones, text="FACTURACION", width=20, font=('Calibri', 14, 'bold'), command=self.accederFacturas)
         btn_factura.grid(row=3, column=0, pady=10, sticky="w")
 
         btn_reservar = Button(frame_opciones, text="RESERVAS", width=20, font=('Calibri', 14, 'bold'), command=self.accederReserva)
@@ -242,6 +244,11 @@ class VentanaInicio:
     def accederReserva(self):
         self.reserva = ventanaReservas.Reserva(self)
 
+    def accederBusqueda(self):
+        self.busqueda = ventanaBuscarCliente.BuscaCliente(self)
+
+    def accederFacturas(self):
+        self.facturas = ventanaFacturas.Factura(self)
 
     def obtener_clientes_desde_bd(self):
         # Establecer conexión a la base de datos
