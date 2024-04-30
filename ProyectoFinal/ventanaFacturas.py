@@ -2,6 +2,9 @@ import datetime
 from tkinter import *
 import sqlite3
 
+import generarFacturaXMLS
+
+
 class Factura():
     def __init__(self, ventana_inicio):
         self.ventana_inicio = ventana_inicio
@@ -95,6 +98,10 @@ class Factura():
         btn_salir = Button(self.frame_datos_factura, text="Salir", width=10, font=('Calibri', 14, 'bold'), command=self.btn_salir)
         btn_salir.grid(row=12, column=1, pady=10)
 
+        ##BOTON PARA GENERAR EL EXCEL E IMPRIMIR
+        btn_salir = Button(self.frame_datos_factura, text="Imprimir", width=10, font=('Calibri', 14, 'bold'), command=self.btn_imprimir)
+        btn_salir.grid(row=12, column=2, pady=10)
+
 
     def obtener_habitaciones_ocupadas(self):
         # Conectar a la base de datos
@@ -119,10 +126,6 @@ class Factura():
         cursor.execute('SELECT * FROM clientesTEMP WHERE habitacion = ?', (habitacionSeleccionada,))
         cliente = cursor.fetchall()
         cursor.execute('SELECT numeroFactura FROM facturas WHERE habitacion = ?', (habitacionSeleccionada,))
-        factura = cursor.fetchall()
-        if not factura:
-            self.numeroFactura.delete(0,END)
-            self.numeroFactura.insert(0,1)
 
         if cliente:
             cliente = cliente[0]  # Tomamos solo la primera fila si hay resultados
@@ -140,9 +143,16 @@ class Factura():
             self.fechaSalida.delete(0,END)
             self.fechaSalida.insert(0,cliente[10])
 
+            cursor.execute("SELECT MAX(numeroFactura) FROM facturas")
+            ultimo_numero = cursor.fetchone()[0]
+            nuevo_numero = ultimo_numero + 1 if ultimo_numero is not None else 1
+            self.numeroFactura.delete(0, END)
+            self.numeroFactura.insert(0, nuevo_numero)
+
             self.calcularPrecio(habitacionSeleccionada)
 
         conexion.close()
+
 
 
     def calcularPrecio(self, habitacion):
@@ -194,3 +204,8 @@ class Factura():
         cursor.execute('INSERT INTO facturas (nombre, nif, direccion, cp, localidad, pais, personas, llegada, salida, habitacion, precio) VALUES (?,?,?,?,?,?,?,?,?,?,?)', (nombre,nif,direccion,cp,localidad,pais,personas,llegada,salida,habitacion,precio))
         conexion.commit()
         conexion.close()
+
+    def btn_imprimir(self):
+        numeroFac = self.numeroFactura.get()
+        generarFacturaXMLS.FacturaExcel(numeroFac)
+        self.btn_salir()
