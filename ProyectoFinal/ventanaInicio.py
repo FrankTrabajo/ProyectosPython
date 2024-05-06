@@ -11,7 +11,7 @@ import ventanaReservas
 
 class VentanaInicio:
     def __init__(self, ventana_menu):
-        self.ventana_inicio = ventana_menu
+        self.ventana_menu = ventana_menu
         self.ventana_inicio = Toplevel()
         self.ventana_inicio.title("Hostal Cruz Sol")
         self.ventana_inicio.resizable(1, 1)
@@ -58,12 +58,12 @@ class VentanaInicio:
         btn_salir.grid(row=5, column=0, pady=10, sticky="w")
 
         # Crear el marco para clientes activos
-        frame_clientes = LabelFrame(self.ventana_inicio, text="", padx=350, pady=30 , borderwidth=1)
-        frame_clientes.configure(labelanchor='s')
-        frame_clientes.grid(row=1,column=1)
+        self.frame_clientes = LabelFrame(self.ventana_inicio, text="", padx=350, pady=30 , borderwidth=1)
+        self.frame_clientes.configure(labelanchor='s')
+        self.frame_clientes.grid(row=1,column=1)
 
         # Crear la etiqueta dentro del marco
-        self.haboc = Label(frame_clientes, text="HABITACIONES OCUPADAS", padx=0, pady=0, font=('Calibri', 14, 'bold'))
+        self.haboc = Label(self.frame_clientes, text="HABITACIONES OCUPADAS", padx=0, pady=0, font=('Calibri', 14, 'bold'))
         # Centrar la etiqueta dentro del marco
         self.haboc.grid(row=2,column=0, rowspan=5)
 
@@ -105,7 +105,7 @@ class VentanaInicio:
         self.actualizar_lista_clientes()
 
         #######################################################################################    RESERVAS    ########################
-        # Crear el marco para clientes activos
+        # Crear el marco para clientes con reserva
         frame_reservas = LabelFrame(self.ventana_inicio, text="", padx=350, pady=30, width=200)
         frame_reservas.configure(labelanchor='s')
         frame_reservas.grid(row=3,column=1)
@@ -157,12 +157,16 @@ class VentanaInicio:
     def actualizar_lista_clientes(self):
         clientes = self.obtener_clientes_desde_bd()
 
+        for widget in self.frame_clienteslista.winfo_children():
+            widget.destroy()
+
         for i, cliente in enumerate(clientes, start=1):  # Comenzamos desde 1 para evitar reescribir encabezados
             nombre = cliente[0]
             apellidos = f"{cliente[1]} {cliente[2]}"
             habitacion = cliente[3]
             fechaentrada = cliente[4]
             fechasalida = cliente[5]
+
 
             # Actualizar las etiquetas
             nombre_cli = Label(self.frame_clienteslista, text=nombre, padx=55, pady=5, font=('Calibri', 11), fg="green")
@@ -180,19 +184,13 @@ class VentanaInicio:
             sal_cli = Label(self.frame_clienteslista, text=fechasalida, padx=55, pady=5, font=('Calibri', 11), fg="green")
             sal_cli.grid(row=i, column=4)
 
-            # Configurar las etiquetas existentes
-            self.etiqueta_nombre_cli.config(text=nombre, fg="green")
-            self.etiqueta_apellido_cli.config(text=apellidos, fg="green")
-            self.etiqueta_hab_cli.config(text=habitacion, fg="green")
-            self.etiqueta_ent_cli.config(text=fechaentrada, fg="green")
-            self.etiqueta_sal_cli.config(text=fechasalida, fg="green")
-
             # Actualizar las variables de instancia
             self.nombre_cliente = nombre
             self.apellidos_cliente = apellidos
             self.habitacion_cliente = habitacion
             self.fecha_entrada_cliente = fechaentrada
             self.fecha_salida_cliente = fechasalida
+
 
     def actualizar_lista_reservas(self):
         reservas = self.obtener_reservas_desde_bd()

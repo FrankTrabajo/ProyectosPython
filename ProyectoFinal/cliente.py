@@ -22,6 +22,7 @@ class Cliente:
 
 
 
+
     def registrarCliente(self):
         conexion = sqlite3.connect('database/usuarios.db')
         cursor = conexion.cursor()
